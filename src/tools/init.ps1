@@ -1,3 +1,3 @@
 param($installPath, $toolsPath, $package)
 
-Import-Module (Join-Path $toolsPath "Benny")
+Import-Module (Join-Path $toolsPath "BobConfig")
