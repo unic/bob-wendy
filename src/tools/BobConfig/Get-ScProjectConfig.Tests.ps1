@@ -4,7 +4,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.", ".")
 
 Describe "Get-ScProjectConfig" {
   Context "Bob.user.config" {
-    function global:Get-Project { @{"FullName" = "TestDrive:\Dummy.csproj"}}
+    function global:Get-ScProjectPath { "TestDrive:\"}
 
     $bobConfig = @"
 <?xml version="1.0" encoding="utf-8"?>
