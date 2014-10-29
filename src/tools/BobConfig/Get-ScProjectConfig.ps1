@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Reads the BOB configuration file and returns it as XML-Object.
+Reads the BOB configuration files and returns it as a hashtable
 .DESCRIPTION
-Reads the BOB configuration file and returns it as XML-Object.
-Per default the config file is taken from the App_Config/Bob.config file in the current Visual Studio project.
+Reads the BOB configuration files and returns it as a hashtable
+Per default the config file is taken from the App_Config/Bob.config file in the current Visual Studio project. If there is a App_Config/Bob.config.user values will be overriden.
 
 .PARAMETER ProjectPath
 The path of the project for which the config shoud be readed.
@@ -16,7 +16,7 @@ The names of the config files
 .EXAMPLE
 Get-ScProjectConfig
 .EXAMPLE
-Get-ScProjectConfig -ProjectPath D:\projects\Spider\src\Spider.Website -ConfigFilePath App_Config -ConfigFileName Bob.config
+Get-ScProjectConfig -ProjectPath D:\projects\Spider\src\Spider.Website
 #>
 
 Function Get-ScProjectConfig
@@ -34,22 +34,7 @@ Function Get-ScProjectConfig
 
     Process
     {
-        if(-not $ProjectPath -and (Get-Command | ? {$_.Name -eq "Get-Project"})) {
-            $project = Get-Project
-            if($Project) {
-                $ProjectPath = Split-Path $project.FullName -Parent
-                if(($ConfigFileName | ? {Test-Path (Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$_")}).Count -eq 0 ) {
-                  $ProjectPath = ""
-                }
-            }
-
-            if(-not $ProjectPath) {
-              $project = Get-Project "*.Website"
-              if($Project) {
-                $ProjectPath = Split-Path $project.FullName -Parent
-              }
-            }
-        }
+        $ProjectPath = Get-ScProjectPath -ProjectPath $ProjectPath -ConfigFilePath $ConfigFilePath -ConfigFileName $ConfigFileName
 
         if(-not $ProjectPath) {
             throw "No ProjectPath could be found. Please provide one."
