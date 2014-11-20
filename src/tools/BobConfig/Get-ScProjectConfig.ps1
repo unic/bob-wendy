@@ -58,6 +58,9 @@ Function Get-ScProjectConfig
             }
           }
         }
+        if(-not $config.WebRoot) {
+            $config.WebRoot = "$($config.GlobalWebPath)\$($config.WebsiteCodeName)\$($config.WebFolderName)"
+        }
         return $config;
     }
 }
