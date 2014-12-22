@@ -1,6 +1,5 @@
 # BobConfig - API
 
-
 ##  Get-ScProjectConfig
 Reads the BOB configuration files and returns it as a hashtable    
     
@@ -18,5 +17,4 @@ Reads the BOB configuration files and returns it as a hashtable
 
 
  [Read more](Set-ScUserConfigValue.md)
-
 
