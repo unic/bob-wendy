@@ -1,3 +1,31 @@
+<#
+.SYNOPSIS
+Sets a config value in the Bob.config.user
+
+.DESCRIPTION
+Sets a config value in the current Bob.config.user.
+If the file does not exist yet, it will be created.
+If the Bob.config.user does not contain a Key yet, it will be added.
+
+.PARAMETER Key
+The config key to set
+
+.PARAMETER Value
+The value to set.
+
+.PARAMETER ProjectPath
+If specified, the Bob.config.user will be searched inside this path.
+
+.PARAMETER ConfigFilePath
+The folder inside the project to search for a Bob.config.user
+
+.PARAMETER ConfigFileName
+A list of config file names which will be used to find the correct project, when no ProjectPath was provided.
+
+.EXAMPLE
+
+#>
+
 function Set-ScUserConfigValue
 {
   [CmdletBinding()]
