@@ -7,6 +7,7 @@ Per default the config file is taken from the App_Config/Bob.config file in the 
 
 .PARAMETER ProjectPath
 The path of the project for which the config shoud be readed.
+If not provided the current Visual Studio project or the *.Website project will be used.
 .PARAMETER ConfigFilePath
 The folder in which the config file is located. The path must be relative to the project path.
 .PARAMETER ConfigFileName
