@@ -3,7 +3,9 @@
 Reads the BOB configuration files and returns it as a hashtable
 .DESCRIPTION
 Reads the BOB configuration files and returns it as a hashtable
-Per default the config file is taken from the App_Config/Bob.config file in the current Visual Studio project. If there is a App_Config/Bob.config.user values will be overriden.
+Per default the config file is taken from the App_Config/Bob.config file in the current Visual Studio project.
+If there is a App_Config/Bob.config.user file, string values will be overwritten by it
+and XML elements will be merged.
 
 .PARAMETER ProjectPath
 The path of the project for which the config shoud be readed.
@@ -53,7 +55,22 @@ Function Get-ScProjectConfig
                     foreach($node in $xml.Configuration.ChildNodes) {
                         if($node.NodeType -eq "Element") {
                             Write-Verbose "Read config-key $($node.Name) with value $($node.InnerText)"
-                            $config[$node.Name] = $node.InnerText
+                            $childElements = ($node.ChildNodes | ? {$_.NodeType -eq "Element"})
+                            if($childElements) {
+                                if($config[$node.Name] -and ($config[$node.Name]  -is [Array])) {
+                                    foreach($element in $childElements) {
+                                        if(-not ($config[$node.Name] | ? {$_.OuterXml -eq $element.OuterXml})) {
+                                            $config[$node.Name] += $element
+                                        }
+                                    }
+                                }
+                                else {
+                                    $config[$node.Name] = @($childElements | % {$_})
+                                }
+                            }
+                            else {
+                                $config[$node.Name] = $node.InnerText
+                            }
                         }
                     }
                 }
