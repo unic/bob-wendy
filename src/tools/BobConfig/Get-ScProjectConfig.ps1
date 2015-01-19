@@ -42,22 +42,22 @@ Function Get-ScProjectConfig
         }
 
         $config = @{
-          "WebsitePath" = $ProjectPath
+            "WebsitePath" = $ProjectPath
         }
         foreach($configFile in $ConfigFileName) {
-          $path = Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$configFile"
-          if(Test-Path $path) {
-            Write-Verbose "Read config file $path"
-            $xml = [xml](Get-Content $path )
-            if($xml.Configuration) {
-              foreach($node in $xml.Configuration.ChildNodes) {
-                if($node.NodeType -eq "Element") {
-                  Write-Verbose "Read config-key $($node.Name) with value $($node.InnerText)"
-                  $config[$node.Name] = $node.InnerText
+            $path = Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$configFile"
+            if(Test-Path $path) {
+                Write-Verbose "Read config file $path"
+                $xml = [xml](Get-Content $path )
+                if($xml.Configuration) {
+                    foreach($node in $xml.Configuration.ChildNodes) {
+                        if($node.NodeType -eq "Element") {
+                            Write-Verbose "Read config-key $($node.Name) with value $($node.InnerText)"
+                            $config[$node.Name] = $node.InnerText
+                        }
+                    }
                 }
-              }
             }
-          }
         }
         if(-not $config.WebRoot) {
             $config.WebRoot = "$($config.GlobalWebPath)\$($config.WebsiteCodeName)\$($config.WebFolderName)"
