@@ -77,7 +77,7 @@ Describe "Get-ScProjectConfig" {
             $config.WebRoot | Should Be "D:\veredummy"
         }
     }
-    Context "When there is a XML config entry" {
+    Context "When there is an XML config entry" {
         $bobConfig = @"
 <?xml version="1.0" encoding="utf-8"?>
         <Configuration>
@@ -101,7 +101,7 @@ Describe "Get-ScProjectConfig" {
             $config.XmlConfig[0].GetType() | Should Be System.Xml.XmlElement
         }
     }
-    Context "When there is a XML config entry with multiple elements" {
+    Context "When there is an XML config entry with multiple elements" {
         $bobConfig = @"
 <?xml version="1.0" encoding="utf-8"?>
         <Configuration>
@@ -126,7 +126,7 @@ Describe "Get-ScProjectConfig" {
             $config.XmlConfig[0].GetType() | Should Be System.Xml.XmlElement
         }
     }
-    Context "When there is a XML config entry which is set in Bob.config and Bob.config.user" {
+    Context "When there is an XML config entry which is set in Bob.config and Bob.config.user" {
         $bobConfig = @"
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration>
@@ -157,7 +157,7 @@ Describe "Get-ScProjectConfig" {
             $config.XmlConfig[2].Foo | Should Be "Bar Three"
         }
     }
-        Context "When there is a XML config entry which is set in Bob.config and Bob.config.user with only one child element" {
+        Context "When there is an XML config entry which is set in Bob.config and Bob.config.user with only one child element" {
             $bobConfig = @"
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration>
@@ -187,7 +187,7 @@ Describe "Get-ScProjectConfig" {
             }
         }
 
-    Context "When there is a XML config entry in Bob.config and Bob.config.user with a same element" {
+    Context "When there is an XML config entry in Bob.config and Bob.config.user with a same element" {
         $bobConfig = @"
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration>

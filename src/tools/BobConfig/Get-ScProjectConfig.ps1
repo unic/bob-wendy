@@ -4,7 +4,7 @@ Reads the BOB configuration files and returns it as a hashtable
 .DESCRIPTION
 Reads the BOB configuration files and returns it as a hashtable
 Per default the config file is taken from the App_Config/Bob.config file in the current Visual Studio project.
-If there is a App_Config/Bob.config.user file, string values will be overwritten by it
+If there is an App_Config/Bob.config.user file, string values will be overwritten by it
 and XML elements will be merged.
 
 .PARAMETER ProjectPath
