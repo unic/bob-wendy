@@ -38,16 +38,18 @@ function Get-ScProjectPath
         $project = Get-Project
         if($Project) {
             $ProjectPath = Split-Path $project.FullName -Parent
-            if(($ConfigFileName | ? {Test-Path (Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$_")}).Count -eq 0 ) {
-              $ProjectPath = ""
+            foreach($configFile in $ConfigFileName ) {
+                if(Test-Path (Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$configFile")) {
+                    # If the current project contains a Bob.config, we return the path of this project
+                    $ProjectPath
+                    return
+                }
             }
         }
 
-        if(-not $ProjectPath) {
-          $project = Get-Project "*.Website"
-          if($Project) {
+        $project = Get-Project "*.Website"
+        if($Project) {
             $ProjectPath = Split-Path $project.FullName -Parent
-          }
         }
     }
 
