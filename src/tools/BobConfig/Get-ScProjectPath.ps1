@@ -26,31 +26,42 @@ Get-ScProjectPath -ConfigFilePath App_Config -ConfigFileName Bob.config, Bob.con
 #>
 function Get-ScProjectPath
 {
-  [CmdletBinding()]
-  Param(
-      [String]$ProjectPath,
-      [String]$ConfigFilePath,
-      [String[]]$ConfigFileName
-  )
-  Process
-  {
-    if(-not $ProjectPath -and (Get-Command | ? {$_.Name -eq "Get-Project"})) {
-        $project = Get-Project
-        if($Project) {
-            $ProjectPath = Split-Path $project.FullName -Parent
-            if(($ConfigFileName | ? {Test-Path (Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$_")}).Count -eq 0 ) {
-              $ProjectPath = ""
+    [CmdletBinding()]
+    Param(
+        [String]$ProjectPath,
+        [String]$ConfigFilePath,
+        [String[]]$ConfigFileName
+    )
+    Process
+    {
+        function ContainsBobConfig() {
+            param($project)
+
+            $projectPath = Split-Path $project.FullName -Parent
+
+            foreach($configFile in $ConfigFileName ) {
+                if(Test-Path (Join-Path (Join-Path $projectPath "$ConfigFilePath") "$configFile")) {
+                    return $true
+                }
+            }
+            return $false
+        }
+
+        if(-not $ProjectPath -and (Get-Command | ? {$_.Name -eq "Get-Project"})) {
+            $project = Get-Project
+            if($Project -and (ContainsBobConfig $Project)) {
+                # If the current project contains a Bob.config, we return the path of this project
+                return (Split-Path $project.FullName -Parent)
+            }
+
+            $projects = Get-Project -All | ? {$_.ExtenderNames -eq "WebApplication"}
+            foreach($project in $projects) {
+                if(ContainsBobConfig $Project) {
+                    return Split-Path $project.FullName -Parent
+                }
             }
         }
 
-        if(-not $ProjectPath) {
-          $project = Get-Project "*.Website"
-          if($Project) {
-            $ProjectPath = Split-Path $project.FullName -Parent
-          }
-        }
+        return $ProjectPath
     }
-
-    $ProjectPath
-  }
 }
