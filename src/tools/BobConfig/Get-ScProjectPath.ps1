@@ -29,8 +29,8 @@ function Get-ScProjectPath
     [CmdletBinding()]
     Param(
         [String]$ProjectPath,
-        [String]$ConfigFilePath,
-        [String[]]$ConfigFileName
+        [String]$ConfigFilePath = "App_Config",
+        [String[]]$ConfigFileName = @("Bob.config", "Bob.config.user")
     )
     Process
     {
