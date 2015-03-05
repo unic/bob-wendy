@@ -60,6 +60,10 @@ function Get-ScProjectPath
                     return Split-Path $project.FullName -Parent
                 }
             }
+
+            # When BobConfig gets installed, Bob.config is not yet here, so return the selected project.
+            $project = Get-Project
+            return (Split-Path $project.FullName -Parent)
         }
 
         return $ProjectPath
