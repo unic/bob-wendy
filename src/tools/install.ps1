@@ -64,5 +64,8 @@ function Set-PackageToBeDevelopmentDependency($PackageId, $ProjectDirectoryPath)
     }
 }
 
+$item = $project.ProjectItems.Item("App_Config").ProjectItems.Item("Bob.Config.user")
+$item.Properties.Item("BuildAction").Value = [int]0
+
 # Set this NuGet Package to be installed as a Development Dependency.
 Set-PackageToBeDevelopmentDependency -PackageId $package.Id -ProjectDirectoryPath ([System.IO.Directory]::GetParent($project.FullName))
