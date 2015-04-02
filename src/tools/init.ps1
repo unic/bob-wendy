@@ -2,6 +2,7 @@ param($installPath, $toolsPath, $package)
 
 Import-Module (Join-Path $toolsPath "BobConfig")
 
+# Often init.ps1 is called before the projects are loaded.
 while((Get-Project).Count -eq 0) {
     sleep -s 1
 }
