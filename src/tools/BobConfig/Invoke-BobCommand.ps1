@@ -56,23 +56,43 @@ function Invoke-BobCommand
             Write-Verbose $newCommand
             Write-Debug "Restart with module $module"
 
-            # 'sysnative' will force to start a x64 PowerShell which is way cooler :)
-            C:\Windows\sysnative\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NoLogo {
-                param($module, $command)
+            $transcript = "${env:TEMP}\$([Guid]::NewGuid())"
+            $script = @"
                 try {
+                    Start-Transcript $transcript
                     Import-Module $module
-                    iex $command
+                    $newCommand
                 }
                 catch {
-                    if($_.Exception -is [Microsoft.PowerShell.Commands.WriteErrorException]) {
-                        Write-Error ("`n" + $_.ToString())
+                    if(`$_.Exception -is [Microsoft.PowerShell.Commands.WriteErrorException]) {
+                        Write-Error ("`n" + `$_.ToString())
                     }
                     else {
-                        Write-Error ("`n" + $_.ToString() + "`n"+ $_.ScriptStackTrace)
+                        Write-Error ("`n" + `$_.ToString() + "`n"+ `$_.ScriptStackTrace)
                     }
 
                 }
-            } -args $module, $newCommand
+                Stop-Transcript
+"@
+            # 'sysnative' will force to start a x64 PowerShell which is way cooler :)
+            $p = New-Object System.Diagnostics.Process
+            $psi = New-Object System.Diagnostics.ProcessStartInfo "C:\Windows\sysnative\WindowsPowerShell\v1.0\powershell.exe"
+            $psi.Arguments = @("-NoProfile","-NoLogo", $script)
+            $p.StartInfo = $psi
+
+            $p.Start()
+
+            $i = 0
+            while (-not $p.HasExited   ) {
+                Start-Sleep -m 50
+                if(Test-Path $transcript) {
+                    $lines = Get-Content $transcript
+                    for(; $i -lt $lines.Count; $i++) {
+                        Write-Host $lines[$i]
+                    }
+                }
+            }
+            Write-Host (Get-Content $transcript -Raw)
         }
         else {
             & $Code
