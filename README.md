@@ -1,4 +1,4 @@
-﻿# Wendy
+# Wendy
 
 Wendy is responsible for configuring Bob and providing APIs to access the configuration.
 
