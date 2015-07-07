@@ -65,13 +65,15 @@ function Invoke-BobCommand
                 }
                 catch {
                     if(`$_.Exception -is [Microsoft.PowerShell.Commands.WriteErrorException]) {
-                        Write-Error ("`n" + `$_.ToString())
+                        Write-Output (""""Error: """" +  `$_.ToString())
                     }
                     else {
-                        Write-Error ("`n" + `$_.ToString() + "`n"+ `$_.ScriptStackTrace)
+                        Write-Output (""""Error: """" +  `$_.ToString() + """"``n"""" + `$_.ScriptStackTrace)
                     }
-
+                    Stop-Transcript
+                    exit 1
                 }
+                
                 Stop-Transcript
 "@
             # 'sysnative' will force to start a x64 PowerShell which is way cooler :)
@@ -80,19 +82,29 @@ function Invoke-BobCommand
             $psi.Arguments = @("-NoProfile","-NoLogo", $script)
             $p.StartInfo = $psi
 
-            $p.Start()
+            $p.Start() | Out-Null
 
             $i = 0
+            $commentStarted = $false
             while (-not $p.HasExited   ) {
                 Start-Sleep -m 50
                 if(Test-Path $transcript) {
                     $lines = Get-Content $transcript
-                    for(; $i -lt $lines.Count; $i++) {
-                        Write-Host $lines[$i]
+                    for(; $i -lt ($lines.Count - 1); $i++) {
+                        $line = $lines[$i]
+                        if($line -eq "**********************") {
+                            $commentStarted = -not $commentStarted
+                        }
+                        elseif(-not $commentStarted -and -not ($line.ToString().StartsWith("Transcript started, output file is"))) {
+                            Write-Host  $line
+                        }
                     }
                 }
             }
-            Write-Host (Get-Content $transcript -Raw)
+
+            if($p.ExitCode -ne 0) {
+                Write-Error "Error while running command $newCommand. Please check the log above."
+            }
         }
         else {
             & $Code
