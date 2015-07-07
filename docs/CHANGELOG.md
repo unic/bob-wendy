@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3
+* Enhanced output of `Invoke-BobCommand` 
+
 ## 1.2
 * `Invoke-BobCommand` starts a new PowerShell console if it's called inside Visual Studio.
 
