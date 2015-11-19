@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4
+* Clean up transcript output in VS console
+* fixed bug where empty parameters resulted in errors during Import-ScDatabase (Scoop)
+* updated Pester and Keith to latest versions
+
 ## 1.3
 * Enhanced output of `Invoke-BobCommand` 
 
