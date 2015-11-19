@@ -42,7 +42,7 @@ function Invoke-BobCommand
                 if($command.Parameters[$key].ParameterType -eq [System.Management.Automation.SwitchParameter]) {
                     $newCommand += " -${Key}:`$$value"
                 }
-                else {
+                elseif ($value -ne ""){
                     $escapedValue = $value -replace "'", "``'"
                     $newCommand += " -${Key} '$escapedValue'"
                 }
@@ -73,7 +73,7 @@ function Invoke-BobCommand
                     Stop-Transcript
                     exit 1
                 }
-                
+
                 Stop-Transcript
 "@
             # 'sysnative' will force to start a x64 PowerShell which is way cooler :)
