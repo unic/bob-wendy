@@ -21,9 +21,9 @@ Describe "Get-ScProjectConfig" {
       <LocalHostName>local host name code child</LocalHostName>
     </Configuration>
 "@
-    mkdir "TestDrive:\App_Config"
-    $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
-    $bobUserConfig | Out-File "TestDrive:\App_Config\Bob.config.user" -Encoding UTF8
+
+    $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
+    $bobUserConfig | Out-File "TestDrive:\Bob.config.user" -Encoding UTF8
 
 
     $config = Get-ScProjectConfig
@@ -47,8 +47,7 @@ Describe "Get-ScProjectConfig" {
     </Configuration>
 "@
 
-    mkdir "TestDrive:\App_Config"
-    $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
+    $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
 
     $config = Get-ScProjectConfig
 
@@ -68,8 +67,7 @@ Describe "Get-ScProjectConfig" {
         </Configuration>
 "@
 
-        mkdir "TestDrive:\App_Config"
-        $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
+        $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
 
         $config = Get-ScProjectConfig
 
@@ -87,8 +85,7 @@ Describe "Get-ScProjectConfig" {
         </Configuration>
 "@
 
-        mkdir "TestDrive:\App_Config"
-        $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
+        $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
 
         $config = Get-ScProjectConfig
 
@@ -112,8 +109,7 @@ Describe "Get-ScProjectConfig" {
         </Configuration>
 "@
 
-        mkdir "TestDrive:\App_Config"
-        $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
+        $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
 
         $config = Get-ScProjectConfig
 
@@ -146,9 +142,8 @@ Describe "Get-ScProjectConfig" {
 </Configuration>
 "@
 
-        mkdir "TestDrive:\App_Config"
-        $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
-        $bobUserConfig | Out-File "TestDrive:\App_Config\Bob.config.user" -Encoding UTF8
+        $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
+        $bobUserConfig | Out-File "TestDrive:\Bob.config.user" -Encoding UTF8
 
         $config = Get-ScProjectConfig
 
@@ -175,9 +170,8 @@ Describe "Get-ScProjectConfig" {
 </Configuration>
 "@
 
-            mkdir "TestDrive:\App_Config"
-            $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
-            $bobUserConfig | Out-File "TestDrive:\App_Config\Bob.config.user" -Encoding UTF8
+            $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
+            $bobUserConfig | Out-File "TestDrive:\Bob.config.user" -Encoding UTF8
 
             $config = Get-ScProjectConfig
 
@@ -206,9 +200,8 @@ Describe "Get-ScProjectConfig" {
 </Configuration>
 "@
 
-        mkdir "TestDrive:\App_Config"
-        $bobConfig | Out-File "TestDrive:\App_Config\Bob.config" -Encoding UTF8
-        $bobUserConfig | Out-File "TestDrive:\App_Config\Bob.config.user" -Encoding UTF8
+        $bobConfig | Out-File "TestDrive:\Bob.config" -Encoding UTF8
+        $bobUserConfig | Out-File "TestDrive:\Bob.config.user" -Encoding UTF8
 
         $config = Get-ScProjectConfig
 
