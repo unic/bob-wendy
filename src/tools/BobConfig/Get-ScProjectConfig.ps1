@@ -8,7 +8,7 @@ When there is a Bob.config.user file, string values will be overwritten by it
 and XML elements will be merged.
 
 .PARAMETER ProjectPath
-The path of the project for which the config shoud be read.
+The path of the project for which the config should be read.
 If not provided the current Visual Studio project or the *.Website project will be used.
 
 .PARAMETER ConfigFileName
