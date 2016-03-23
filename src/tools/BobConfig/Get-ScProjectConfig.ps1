@@ -3,12 +3,12 @@
 Reads the BOB configuration files and returns it as a hashtable
 .DESCRIPTION
 Reads the BOB configuration files and returns it as a hashtable
-Per default the config file is taken from the next Bob.config when searching from the current directory upwards 
-When there is an Bob.config.user file, string values will be overwritten by it
+Per default the config file is taken from the the first Bob.config that we come across going from where we are upwards.
+When there is a Bob.config.user file, string values will be overwritten by it
 and XML elements will be merged.
 
 .PARAMETER ProjectPath
-The path of the project for which the config shoud be readed.
+The path of the project for which the config shoud be read.
 If not provided the current Visual Studio project or the *.Website project will be used.
 
 .PARAMETER ConfigFileName
@@ -31,8 +31,7 @@ Function Get-ScProjectConfig
         [String]$ProjectPath = "",
         [String[]]$ConfigFileName = @("Bob.config", "Bob.config.user")
     )
-    Begin{}
-
+    
     Process
     {
         $ProjectPath = Get-ScProjectPath -ProjectPath $ProjectPath -ConfigFileName $ConfigFileName
