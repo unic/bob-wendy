@@ -21,7 +21,7 @@ A list of names for config files
 Get-ScProjectPath
 
 .EXAMPLE
-Get-ScProjectPath -ConfigFilePath App_Config -ConfigFileName Bob.config, Bob.config.user
+Get-ScProjectPath -ConfigFileName Bob.config, Bob.config.user
 
 #>
 function Get-ScProjectPath
@@ -29,43 +29,35 @@ function Get-ScProjectPath
     [CmdletBinding()]
     Param(
         [String]$ProjectPath,
-        [String]$ConfigFilePath = "App_Config",
         [String[]]$ConfigFileName = @("Bob.config", "Bob.config.user")
     )
     Process
     {
+        if($ProjectPath) {
+            return $ProjectPath
+        }
+            
+        
         function ContainsBobConfig() {
-            param($project)
-
-            $projectPath = Split-Path $project.FullName -Parent
+            param($path)
 
             foreach($configFile in $ConfigFileName ) {
-                if(Test-Path (Join-Path (Join-Path $projectPath "$ConfigFilePath") "$configFile")) {
+                if(Test-Path (Join-Path $path "$configFile")) {
                     return $true
                 }
             }
             return $false
         }
 
-        if(-not $ProjectPath -and (Get-Command | ? {$_.Name -eq "Get-Project"})) {
-            $project = Get-Project
-            if($Project -and (ContainsBobConfig $Project)) {
-                # If the current project contains a Bob.config, we return the path of this project
-                return (Split-Path $project.FullName -Parent)
+        $folder = $pwd.Path
+        
+        while($folder) {
+            if((ContainsBobConfig $folder)) {
+                return $folder
             }
-
-            $projects = Get-Project -All | ? {$_.ExtenderNames -eq "WebApplication"}
-            foreach($project in $projects) {
-                if(ContainsBobConfig $Project) {
-                    return Split-Path $project.FullName -Parent
-                }
+            else {
+                $folder = Split-Path $folder
             }
-
-            # When BobConfig gets installed, Bob.config is not yet here, so return the selected project.
-            $project = Get-Project
-            return (Split-Path $project.FullName -Parent)
         }
-
-        return $ProjectPath
     }
 }

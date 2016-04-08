@@ -3,15 +3,14 @@
 Reads the BOB configuration files and returns it as a hashtable
 .DESCRIPTION
 Reads the BOB configuration files and returns it as a hashtable
-Per default the config file is taken from the App_Config/Bob.config file in the current Visual Studio project.
-If there is an App_Config/Bob.config.user file, string values will be overwritten by it
+Per default the config file is taken from the the first Bob.config that we come across going from where we are upwards.
+When there is a Bob.config.user file, string values will be overwritten by it
 and XML elements will be merged.
 
 .PARAMETER ProjectPath
-The path of the project for which the config shoud be readed.
+The path of the project for which the config should be read.
 If not provided the current Visual Studio project or the *.Website project will be used.
-.PARAMETER ConfigFilePath
-The folder in which the config file is located. The path must be relative to the project path.
+
 .PARAMETER ConfigFileName
 The names of the config files
 
@@ -30,14 +29,12 @@ Function Get-ScProjectConfig
     )]
     Param(
         [String]$ProjectPath = "",
-        [String]$ConfigFilePath = "App_Config",
         [String[]]$ConfigFileName = @("Bob.config", "Bob.config.user")
     )
-    Begin{}
-
+    
     Process
     {
-        $ProjectPath = Get-ScProjectPath -ProjectPath $ProjectPath -ConfigFilePath $ConfigFilePath -ConfigFileName $ConfigFileName
+        $ProjectPath = Get-ScProjectPath -ProjectPath $ProjectPath -ConfigFileName $ConfigFileName
 
         if(-not $ProjectPath) {
             throw "No ProjectPath could be found. Please provide one."
@@ -47,7 +44,7 @@ Function Get-ScProjectConfig
             "WebsitePath" = $ProjectPath
         }
         foreach($configFile in $ConfigFileName) {
-            $path = Join-Path (Join-Path $ProjectPath "$ConfigFilePath") "$configFile"
+            $path = Join-Path $ProjectPath "$configFile"
             if(Test-Path $path) {
                 Write-Verbose "Read config file $path"
                 $xml = [xml](Get-Content $path )
