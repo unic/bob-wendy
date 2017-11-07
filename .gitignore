@@ -1,3 +1,14 @@
+# Paket
+packages/
+paket-files/
+.paket/
+!.paket/paket.bootstrapper.exe
 
-packages
-paket.exe
+
+# Gitbook
+docs/node_modules/
+docs-generated/
+temp/
+
+# GIT
+.git-credentials
