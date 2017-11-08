@@ -1,10 +1,14 @@
 # Changelog
 
-## 2.0
+## 3.0
 
 * Initial release on GH
 * Support for Gitbook 3
 * Rename module to "Wendy"
+
+## 2.0
+
+* Enable Helix based architecture (move bob.config to the Solution root)
 
 ## 1.4
 
