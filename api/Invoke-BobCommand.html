@@ -1,0 +1,358 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Invoke-BobCommand · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-unic/unic.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Set-ScUserConfigValue.html" />
+    
+    
+    <link rel="prev" href="Get-ScProjectPath.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../CHANGELOG.html">
+            
+                <a href="../CHANGELOG.html">
+            
+                    
+                    Changelog
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Wendy - API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="Get-ScProjectConfig.html">
+            
+                <a href="Get-ScProjectConfig.html">
+            
+                    
+                    Get-ScProjectConfig
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="Get-ScProjectPath.html">
+            
+                <a href="Get-ScProjectPath.html">
+            
+                    
+                    Get-ScProjectPath
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="Invoke-BobCommand.html">
+            
+                <a href="Invoke-BobCommand.html">
+            
+                    
+                    Invoke-BobCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="Set-ScUserConfigValue.html">
+            
+                <a href="Set-ScUserConfigValue.html">
+            
+                    
+                    Set-ScUserConfigValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Invoke-BobCommand</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="invoke-bobcommand">Invoke-BobCommand</h1>
+<p>If Invoke-BobCommand is called from the NuGet package manager console,
+it will start a new process to run the command, else it just runs the specified code-block normally.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>Invoke-BobCommand [-Code] &lt;ScriptBlock&gt; [&lt;CommonParameters&gt;]
+</code></pre><h2 id="description">Description</h2>
+<p><code>Invoke-BobCommand</code> can be used to ensure a cmdlet is run in a custom PowerShell
+process instead of the package manager console. If it&apos;s called from a normal
+PowerShell host, it will just run the specified code normally, if it&apos;s called
+from the package manager host, it will start a new PowerShell process
+and rerun the original command with the original parameters.
+If the original command has a parameter &quot;ProjectPath&quot; , it will be set with
+<code>Get-ScProjectPath</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>-Code &lt;ScriptBlock&gt;
+</code></pre><p><em>The code to execute, when the command is called from a normal PowerShell host.
+Normally this will be the whole body of the calling command.</em></p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Required</th>
+<th>Default value</th>
+<th>Accept pipeline input</th>
+<th>Accept wildchard characters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>true</td>
+<td></td>
+<td>false</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="examples">Examples</h2>
+<h3 id="--------------------------example-1---------------------------">-------------------------- EXAMPLE 1 --------------------------</h3>
+<pre><code>Invoke-BobCommand {Write-Host &quot;Hey&quot;}
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Get-ScProjectPath.html" class="navigation navigation-prev " aria-label="Previous page: Get-ScProjectPath">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Set-ScUserConfigValue.html" class="navigation navigation-next " aria-label="Next page: Set-ScUserConfigValue">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Invoke-BobCommand","level":"1.3.3","depth":2,"next":{"title":"Set-ScUserConfigValue","level":"1.3.4","depth":2,"path":"api/Set-ScUserConfigValue.md","ref":"api/Set-ScUserConfigValue.md","articles":[]},"previous":{"title":"Get-ScProjectPath","level":"1.3.2","depth":2,"path":"api/Get-ScProjectPath.md","ref":"api/Get-ScProjectPath.md","articles":[]},"dir":"ltr"},"config":{"plugins":["theme-unic@git+https://github.com/unic/gitbook-plugin-theme-unic.git"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":[]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-unic":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"links":{"sharing":{"all":false}},"gitbook":"3.2.3"},"file":{"path":"api/Invoke-BobCommand.md","mtime":"2017-11-08T10:03:24.905Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-11-08T10:04:58.790Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
