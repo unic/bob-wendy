@@ -1,6 +1,6 @@
 param($installPath, $toolsPath, $package)
 
-Import-Module (Join-Path $toolsPath "BobConfig")
+Import-Module (Join-Path $toolsPath "Wendy")
 
 # Often init.ps1 is called before the projects are loaded.
 while((Get-Project).Count -eq 0) {

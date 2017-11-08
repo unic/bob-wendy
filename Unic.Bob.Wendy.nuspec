@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Unic.Bob.Wendy</id>
+    <authors>Unic AG</authors>
+    <version>$VERSION$</version>
+    <owners>Unic AG</owners>
+    <iconUrl>https://github.com/unic/unic/raw/master/unic_nuget.png</iconUrl>
+    <projectUrl>https://github.com/unic/bob-wendy</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Wendy provides an API to read the Bob.config</description>
+  </metadata>
+  <files>
+    <file src="src\**" target="" />
+  </files>
+</package>

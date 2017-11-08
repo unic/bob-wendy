@@ -24,5 +24,4 @@ collection.
 
 ## NuGet Package
 Each machine which depends on `Bob.config` should have a dependency to
-_Unic.Bob.Config_. This package adds `Bob.config` and `Bob.config.user` to the
-project and a [PowerShell module](api/README.md) for reading the config file.
+_Unic.Bob.Wendy_. This package adds a [PowerShell module](api/README.md) for reading the config file through an API and a sceleton of the files `Bob.config` and `Bob.config.user`.
