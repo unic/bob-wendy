@@ -1,4 +1,8 @@
-![Build](https://ci.appveyor.com/api/projects/status/github/unic/bob-wendy?svg=true)
+[![build status][1]][2]
+
+[1]: https://ci.appveyor.com/api/projects/status/github/unic/bob-wendy?svg=true
+[2]: https://ci.appveyor.com/api/projects/status/github/unic/bob-wendy
+
 
 # Wendy
 
