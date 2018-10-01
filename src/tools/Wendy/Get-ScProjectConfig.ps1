@@ -76,6 +76,16 @@ Function Get-ScProjectConfig
         if(-not $config.WebRoot) {
             $config.WebRoot = "$($config.GlobalWebPath)\$($config.WebsiteCodeName)\$($config.WebFolderName)"
         }
+        if(-not $config.XConnectRoot) {
+            $config.XConnectRoot = "$($config.GlobalWebPath)\$($config.XConnectWebsiteCodeName)\$($config.XConnectWebFoldername)"
+        }
+        if(-not $config.IndexWorkerRoot) {
+            $config.IndexWorkerRoot = "$($config.XConnectRoot)\App_data\jobs\continuous\IndexWorker"
+        }
+        if(-not $config.AutomationEngineRoot) {
+            $config.AutomationEngineRoot = "$($config.XConnectRoot)\App_data\jobs\continuous\AutomationEngine"
+        }
+
         return $config;
     }
 }
