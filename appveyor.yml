@@ -6,7 +6,7 @@ environment:
   NuGet_PackageId: Unic.Bob.Wendy
   Nuspec_File: .\%NuGet_PackageId%.nuspec
   NuGetToken:
-    secure: OTBot3Ns2V1fSxzRL4pDN9JSHcFaajgyccmDkwj6jn8cpQcGNGX0jtFQPZpF/Tef
+    secure: FUrZLPDf+3BJZdvrZInK67/EkZ9yJthzS1H/Uk+ei1tQ87IbDw/n7a+K2NvFokzk
   Artefact_Output_Dir: .\output
   GithubEmail: team-unic@unic.com
   GithubUsername: team-unic
