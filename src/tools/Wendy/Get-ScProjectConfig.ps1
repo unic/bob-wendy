@@ -85,6 +85,12 @@ Function Get-ScProjectConfig
         if(-not $config.AutomationEngineRoot) {
             $config.AutomationEngineRoot = "$($config.XConnectRoot)\App_data\jobs\continuous\AutomationEngine"
         }
+        if(-not $config.IndexWorkerServiceName) {
+            $config.IndexWorkerServiceName = "$($config.XConnectWebsiteCodeName)-IndexWorker"
+        }
+        if(-not $config.AutomationEngineServiceName) {
+            $config.AutomationEngineServiceName = "$($config.XConnectWebsiteCodeName)-MarketingAutomationService"
+        }
 
         return $config;
     }
