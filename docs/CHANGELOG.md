@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1
+
+* Added xConnect/IndexWorker/AutomationEngine config variales
+
 ## 3.0
 
 * Initial release on GH
